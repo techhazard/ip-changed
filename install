@@ -1,0 +1,4 @@
+#!/bin/sh
+ln -s $PWD/IP-changed /usr/local/bin/
+ln -s $Pwd/IP-check /etc/cron.hourly/
+

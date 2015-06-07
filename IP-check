@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#file to store my IP (will hold the old one if changed)
+IPFILE=/var/log/IP.txt
+
+# actual IP addr (new if changed)
+newIP=`dig +short myip.opendns.com @resolver1.opendns.com`
+
+#datetime
+dt=$(date -Iseconds)
+
+# the IP I'm expecting to have ("previous" if changed)
+myIP=$(head -n 1 $IPFILE)
+wait
+
+#IP regex thx to http://unix.stackexchange.com/a/111855
+octet="(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])"
+ip4="^$octet\\.$octet\\.$octet\\.$octet$"
+
+if ! [[ $newIP =~ $ip4 ]];
+then
+	exit 0;
+fi
+
+# if IP changed
+if [[ $newIP != $myIP ]]
+then
+	# notify of change (yay, pushbullet)
+	/usr/local/bin/IP-changed "$newIP" 
+
+	# do not save IP if notify failed
+	if [ $? -ne 0 ];then exit 1;fi
+	
+	#add log entry	
+	echo -e "$dt IP has been changed to: $newIP" >> $IPFILE
+
+	# save new IP
+	sed -i "1s/.*/$newIP/" $IPFILE;
+fi
+
+exit 0

@@ -1,0 +1,2 @@
+rm /usr/bin/local/IP-changed
+rm /etc/cron.hourly/IP-check

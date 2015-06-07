@@ -1,0 +1,10 @@
+#!/usr/bin/python2
+from pushbullet import Pushbullet
+import sys
+if len(sys.argv) != 2:
+    print "error!";
+    sys.exit(1)
+
+pb = Pushbullet("YOUR PUSHBULLET API KEY")
+pb.push_note("IP has changed","the IP is now: "+sys.argv[1])
+

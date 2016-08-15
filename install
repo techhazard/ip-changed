@@ -1,4 +1,12 @@
-#!/bin/sh
-ln -s $PWD/IP-changed /usr/local/bin/
-ln -s $Pwd/IP-check /etc/cron.hourly/
+#!/bin/bash
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+ln -s $DIR/IP-changed /usr/local/bin/
+ln -s $DIR/IP-check /etc/cron.hourly/
 

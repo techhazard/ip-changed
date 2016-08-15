@@ -4,7 +4,7 @@
 IPFILE=/var/log/IP.txt
 
 # actual IP addr (new if changed)
-newIP=`dig +short myip.opendns.com @resolver1.opendns.com`
+newIP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
 #datetime
 dt=$(date -Iseconds)

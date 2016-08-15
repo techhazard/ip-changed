@@ -4,7 +4,7 @@ import sys
 import os
 
 if len(sys.argv) != 4:
-    print "error!";
+    print "error: needs three arguments: old IP, new IP and logfile";
     sys.exit(1)
 
 # get actual path  of the directory this script is in (with all symlinks resolved)

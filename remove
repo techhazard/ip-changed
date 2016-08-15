@@ -1,2 +1,6 @@
-rm /usr/local/bin/IP-changed
-rm /etc/cron.hourly/IP-check
+#!/usr/bin/python2
+
+import os
+
+os.remove("/usr/local/bin/IP-changed")
+os.remove("/etc/cron.hourly/IP-check")

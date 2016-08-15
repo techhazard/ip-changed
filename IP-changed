@@ -1,16 +1,31 @@
 #!/usr/bin/python2
 from pushbullet import Pushbullet
 import sys
+import os
+
 if len(sys.argv) != 4:
     print "error!";
     sys.exit(1)
+
+# get actual path  of the directory this script is in (with all symlinks resolved)
+path = os.path.dirname(os.path.realpath(__file__))
+
+# retrieve API key
+api_key = None
+try:
+    with open(path+"/"+"PUSHBULLET_API_KEY","r") as f:
+        api_key = f.read().strip()
+except IOError:
+    print "error: \"PUSHBULLET_API_KEY\" file is missing";
+    sys.exit(2)
+
 
 old_ip = sys.argv[1]
 new_ip = sys.argv[2]
 logfile = sys.argv[3]
 
 
-pb = Pushbullet("o.UnxWvxGVKJsEmDRTqaEYCUd6VSniMrkr")
+pb = Pushbullet(api_key)
 title = "IP has changed to "+new_ip
 note = "the IP changed from "+old_ip+" to "+new_ip+"."
 note += "\nFor more info check "+logfile+"."

@@ -1,10 +1,19 @@
 #!/usr/bin/python2
 from pushbullet import Pushbullet
 import sys
-if len(sys.argv) != 2:
+if len(sys.argv) != 4:
     print "error!";
     sys.exit(1)
 
-pb = Pushbullet("YOUR PUSHBULLET API KEY")
-pb.push_note("IP has changed","the IP is now: "+sys.argv[1])
+old_ip = sys.argv[1]
+new_ip = sys.argv[2]
+logfile = sys.argv[3]
+
+
+pb = Pushbullet("o.UnxWvxGVKJsEmDRTqaEYCUd6VSniMrkr")
+title = "IP has changed to "+new_ip
+note = "the IP changed from "+old_ip+" to "+new_ip+"."
+note += "\nFor more info check "+logfile+"."
+
+pb.push_note(title,note)
 

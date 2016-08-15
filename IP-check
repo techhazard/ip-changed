@@ -22,17 +22,19 @@ then
 	exit 0;
 fi
 
+
+
 # if IP changed
 if [[ $newIP != $myIP ]]
 then
 	# notify of change (yay, pushbullet)
-	/usr/local/bin/IP-changed "$newIP" 
+	/usr/local/bin/IP-changed "$myIP" "$newIP" "$IPFILE" &
 
 	# do not save IP if notify failed
 	if [ $? -ne 0 ];then exit 1;fi
 	
 	#add log entry	
-	echo -e "$dt IP has been changed to: $newIP" >> $IPFILE
+	echo -e "$dt IP has been changed from $myIP to $newIP" >> $IPFILE
 
 	# save new IP
 	sed -i "1s/.*/$newIP/" $IPFILE;

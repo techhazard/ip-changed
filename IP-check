@@ -10,8 +10,9 @@ newIP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 dt=$(date -Iseconds)
 
 # the IP I'm expecting to have ("previous" if changed)
-myIP=$(head -n 1 $IPFILE)
+myIP=$(head -n 1 $IPFILE 2>/dev/null)
 wait
+myIP="${myIP:-unknown}"
 
 #IP regex thx to http://unix.stackexchange.com/a/111855
 octet="(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])"
